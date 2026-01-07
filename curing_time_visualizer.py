@@ -70,6 +70,10 @@ class CuringTimeVisualizer:
             ax.set_xlabel('Concrete age: $t$ [days]')
             #ax.clear()   # Clear the existing plot
 
+        # Set titles
+        axs[0].set_title('Strength')
+        axs[1].set_title('Stiffness')
+
         # Apply y-axis formatting
         axs[0].set_ylim(0, self.concrete.f_ck)
         axs[0].set_ylabel(r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]')
@@ -100,7 +104,7 @@ class CuringTimeVisualizer:
         heading = widgets.HTML(
             '<h1>Concrete curing time visualizer</h1>'
         )
-        explanation = widgets.html(
+        explanation = widgets.HTML(
             '<p>Explore the interdependencies between curing temperature, curing time, and the compressive strength and stiffness of concrete according to EN 1992-1-1:2023.</p>'
         )
         display(heading)
