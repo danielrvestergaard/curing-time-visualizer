@@ -106,6 +106,7 @@ class CuringTimeVisualizer:
         )
         explanation = widgets.HTML(
             '<p>Explore the interdependencies between curing temperature, curing time, and the compressive strength and stiffness of concrete according to EN 1992-1-1:2023.</p>'
+            '<p>The dotted line indicates where the temperature-adjusted age exceeds the range of validity for the calculation of <em>f</em><sub>ck</sub> (< 3 days).</p>'
         )
         display(heading)
         display(explanation)
