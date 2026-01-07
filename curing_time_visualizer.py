@@ -97,6 +97,14 @@ class CuringTimeVisualizer:
         #plt.draw()   # Update the plot whenever this function is executed
 
     def display(self):
+        heading = widgets.HTML(
+            '<h1>Concrete curing time visualizer</h1>'
+        )
+        explanation = widgets.html(
+            '<p>Explore the interdependencies between curing temperature, curing time, and the compressive strength and stiffness of concrete according to EN 1992-1-1:2023.</p>'
+        )
+        display(heading)
+        display(explanation)
         w = widgets.interact(
             self.plot_curves,
             strength_class=self._strength_dropdown,
