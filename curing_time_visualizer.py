@@ -108,7 +108,7 @@ class CuringTimeVisualizer:
             '<p>Explore the interdependencies between curing temperature, curing time, and the compressive strength and stiffness of concrete according to EN 1992-1-1:2023.</p>'
         )
         display(heading)
-        # display(explanation)
+        display(explanation)
         w = widgets.interact(
             self.plot_curves,
             strength_class=self._strength_dropdown,
