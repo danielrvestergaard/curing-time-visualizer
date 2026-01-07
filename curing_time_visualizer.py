@@ -113,7 +113,7 @@ class CuringTimeVisualizer:
             min=5,
             max=20,
             step=1,
-            description=r'Temperature [$^\circ$C]:',
+            description='Temperature [\u00b0]:',
             disabled=False,
             continuous_update=False,
             orientation='horizontal',
