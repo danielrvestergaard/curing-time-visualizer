@@ -24,15 +24,15 @@ class CuringTimeVisualizer:
 
     @property
     def default_age(self) -> float:
-        return 28.0
+        return 28.0  # [days]
 
     @property
     def default_curing_temperature(self) -> float:
-        return 20.0
+        return 20.0  # [degrees C]
 
     @property
     def max_age(self) -> int:
-        return 28
+        return 30  # [days]
 
     @property
     def X_TICKS(self) -> np.ndarray:
