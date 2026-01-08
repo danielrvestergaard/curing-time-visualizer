@@ -6,8 +6,6 @@ from concrete import Concrete2004, Concrete2023
 
 class CuringTimeVisualizer:
 
-    X_TICKS = np.arange(0, 28+1, 2)
-
     def __init__(self, concrete_class: type):
         self.concrete = concrete_class(
             self.default_strength_class,
@@ -32,6 +30,14 @@ class CuringTimeVisualizer:
     def default_curing_temperature(self) -> float:
         return 20.0
 
+    @property
+    def max_age(self) -> int:
+        return 28
+
+    @property
+    def X_TICKS(self) -> np.ndarray:
+        return np.arange(0, self.max_age+1, 2)
+
     def plot_curves(self, strength_class: str, strength_development_class: str,
                     t: float, T: float):
 
@@ -41,11 +47,11 @@ class CuringTimeVisualizer:
         t_T_min = 3.0
         t_min = t_T_min*np.exp(4000/(273+T)-13.65)
         # - Generate data on each side of t_T = 3 days
-        dt = 28/100  # Sample spacing
-        n_samples = [int(t_min//dt+1), int((28.0-t_min)//dt+1)]
+        dt = self.max_age/100  # Sample spacing
+        n_samples = [int(t_min//dt+1), int((self.max_age-t_min)//dt+1)]
         t_list = np.hstack((
             np.linspace(0.01, t_min, n_samples[0]),
-            np.linspace(t_min, 28.0, n_samples[1]),
+            np.linspace(t_min, self.max_age, n_samples[1]),
         ))
         # - Get index of t_T = 3 days
         idx = np.argmax(t<=t_list)
@@ -65,7 +71,7 @@ class CuringTimeVisualizer:
 
         # Apply x-axis formatting
         for ax in axs:
-            ax.set_xlim(0, 28)
+            ax.set_xlim(0, self.max_age)
             ax.set_xticks(self.X_TICKS)
             ax.set_xlabel('Concrete age: $t$ [days]')
             #ax.clear()   # Clear the existing plot
@@ -140,9 +146,9 @@ class CuringTimeVisualizer:
     def _t_slider(self) -> widgets.IntSlider:
         ''' The concrete age slider '''
         slider = widgets.IntSlider(
-            value=28,
+            value=self.default_age,
             min=0,
-            max=28,
+            max=self.max_age,
             step=1,
             description=r'Concrete age [days]:',
             disabled=False,
