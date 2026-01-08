@@ -83,7 +83,7 @@ class CuringTimeVisualizer:
         # Apply y-axis formatting
         axs[0].set_ylim(0, np.ceil((self.concrete.f_ck+1)/5)*5)
         axs[0].set_ylabel(r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]')
-        axs[0].set_yticks(np.arange(0, self.concrete.f_ck+1, 5))
+        axs[0].set_yticks(np.arange(0, self.concrete.f_ck+2, 5))
         axs[1].set_ylim(0, np.ceil((1e-3*self.concrete.E_cm+1)/5)*5)
         axs[1].set_ylabel(r'Modulus of elasticity: $E_\mathrm{cm}(t)$ [GPa]')
         #axs[1].set_yticks(np.arange(0, self.concrete.E_cm+1, 5))
