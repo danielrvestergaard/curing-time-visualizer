@@ -81,7 +81,7 @@ class CuringTimeVisualizer:
         axs[1].set_title('Stiffness')
 
         # Apply y-axis formatting
-        axs[0].set_ylim(0, self.concrete.f_ck)
+        axs[0].set_ylim(0, np.ceil((1e-3*self.concrete.f_ck)/5)*5)
         axs[0].set_ylabel(r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]')
         axs[0].set_yticks(np.arange(0, self.concrete.f_ck+1, 5))
         axs[1].set_ylim(0, np.ceil((1e-3*self.concrete.E_cm)/5)*5)
