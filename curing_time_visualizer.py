@@ -41,7 +41,6 @@ class CuringTimeVisualizer:
     def plot_curves(self, strength_class: str, strength_development_class: str,
                     t: float, T: float, compressive_strength_type: str):
 
-
         # Generate age plotting data
         # - Find age corresponding to t_T = 3 days (for which f_ck is valid)
         t_T_min = 3.0
@@ -62,19 +61,6 @@ class CuringTimeVisualizer:
         self.concrete.age = t_list
         self.concrete.curing_temperature = T
 
-        # Choose which value to plot for the compressive strength
-        if compressive_strength_type=='Mean':
-            f_c = self.concrete.f_cm
-            f_c_t = self.concrete.f_cm_t
-            f_c_label = r'Compressive strength: $f_\mathrm{cm}(t)$ [MPa]'
-        elif compressive_strength_type=='Characteristic':
-            f_c = self.concrete.f_ck
-            f_c_t = self.concrete.f_ck_t
-            f_c_label = r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]'
-        else:
-            raise ValueError(
-                "'compressive_strength_type' must be 'Mean' or 'Characteristic'"
-            )
 
         # Generate plot
         #fig, axs = self.fig, self.axs
@@ -92,10 +78,23 @@ class CuringTimeVisualizer:
         # Set titles
         axs[0].set_title('Strength')
         axs[1].set_title('Stiffness')
+        
+        if compressive_strength_type=='Mean':
+            f_c = self.concrete.f_cm
+            f_c_t = self.concrete.f_cm_t
+            f_c_label = r'Compressive strength: $f_\mathrm{cm}(t)$ [MPa]'
+        elif compressive_strength_type=='Characteristic':
+            f_c = self.concrete.f_ck
+            f_c_t = self.concrete.f_ck_t
+            f_c_label = r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]'
+        else:
+            raise ValueError(
+                "'compressive_strength_type' must be 'Mean' or 'Characteristic'"
+            )
 
         # Apply y-axis formatting
         axs[0].set_ylim(0, np.ceil((f_c+1)/5)*5)
-        axs[0].set_ylabel(r'Compressive strength: $f_\mathrm{ck}(t)$ [MPa]')
+        axs[0].set_ylabel(f_c_label)
         axs[0].set_yticks(np.arange(0, f_c+2, 5))
         axs[1].set_ylim(0, np.ceil((1e-3*self.concrete.E_cm+1)/5)*5)
         axs[1].set_ylabel(r'Modulus of elasticity: $E_\mathrm{cm}(t)$ [GPa]')
@@ -135,7 +134,7 @@ class CuringTimeVisualizer:
             strength_development_class=self._strength_development_dropdown,
             T=self._T_slider,
             t=self._t_slider,
-            compressive_strength_type=self._compressive_strength_type_toggle,
+            compressive_strength_type=self._compressive_strength_type_toggle
         )
 
     @property
@@ -210,7 +209,8 @@ class CuringTimeVisualizer:
             style=widgets.ToggleButtonsStyle(
                 button_width='100px', description_width='170px'
             )
-            tooltips=['f_cm', 'f_ck'],
+            # tooltips=['Description of slow', 'Description of regular', 'Description of fast'],
+        #     icons=['check'] * 3
         )
         toggleButtons.style.button_width = '100px'
         
